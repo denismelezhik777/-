@@ -1,0 +1,153 @@
+import pygame
+import pygame as pg
+import socket
+
+sock = socket.socket()
+sock.bind(('', 9090))  # первое - хост, второе порт
+sock.listen(1)
+conn, addr = sock.accept()
+
+
+# передача данных
+
+class Сommunication:
+    def __init__(self):
+        pg.font.init()
+        pygame.init()
+        pygame.display.init()
+        pygame.joystick.init()
+        pygame.joystick.Joystick(0).init()
+        # pygame инициализация модулей
+        self.os_0 = 0
+        self.os_1 = 0
+        self.os_2 = 0
+        self.os_3 = 0
+        self.os_4 = 0
+
+    def Jostik_info(self):
+        #  self.JoyName = pygame.joystick.Joystick(0).get_name()
+        # JoyAx = pygame.joystick.Joystick(0).get_numaxes()
+        # Joybutton = pygame.joystick.Joystick(0).get_numbuttons()
+        # Joynumhats = pygame.joystick.Joystick(0).get_numhats()
+        self.os_2 = pygame.joystick.Joystick(0).get_axis(2)
+        if self.os_2 == -3.0517578125e-05:
+            self.os_2 = 0.0
+        self.os_2 = int(self.os_2 * 100)
+        if self.os_2 == 99:
+            self.os_2 = 100
+
+        self.os_4 = pygame.joystick.Joystick(0).get_axis(4)
+        if self.os_4 == -3.0517578125e-05:
+            self.os_4 = 0.0
+        self. os_4 = int(self.os_4 * 100)
+        if self.os_4 == 99:
+            self.os_4 = 100
+
+        self.os_0 = pygame.joystick.Joystick(0).get_axis(0)
+        if self.os_0 == -3.0517578125e-05:
+            self.os_0 = 0.0
+        self.os_0 = int(self.os_0 * 100)
+        if self.os_0 == 99:
+            self.os_0 = 100
+
+        self.os_1 = pygame.joystick.Joystick(0).get_axis(1)
+        if self.os_1 == -3.0517578125e-05:
+            self.os_1 = 0.0
+        self.os_1 = int(self.os_1 * 100)
+        if self.os_1 == 99:
+            self.os_1 = 100
+
+        self.os_3 = pygame.joystick.Joystick(0).get_axis(3)
+        if self.os_3 == -3.0517578125e-05:
+            self.os_3 = 0.0
+        self.os_3 = int(self.os_3 * 100)
+        if self.os_3 == 99:
+            self.os_3 = 100
+
+        self.but_1_g2 = pygame.joystick.Joystick(0).get_button(4)
+        self.but_2_g2 = pygame.joystick.Joystick(0).get_button(5)
+        self.but_3_g2 = pygame.joystick.Joystick(0).get_button(6)
+        self.but_4_g2 = pygame.joystick.Joystick(0).get_button(7)
+        self.but_5_g2 = pygame.joystick.Joystick(0).get_button(8)
+        self.but_6_g2 = pygame.joystick.Joystick(0).get_button(9)
+        # !!
+        self.but_1_g1 = pygame.joystick.Joystick(0).get_button(0)
+        self.but_2_g1 = pygame.joystick.Joystick(0).get_button(1)
+        self.but_3_g1 = pygame.joystick.Joystick(0).get_button(2)
+        self.but_4_g1 = pygame.joystick.Joystick(0).get_button(3)
+        self.hat_0_g1 = pygame.joystick.Joystick(0).get_hat(0)
+        # !!
+        self.but_10 = pygame.joystick.Joystick(0).get_button(10)
+        self.but_11 = pygame.joystick.Joystick(0).get_button(11)
+
+    def display(self):
+        self.win = pg.display.set_mode((800, 600))
+        pg.display.set_caption('Джостик')
+        f1 = pygame.font.Font(None, 24)
+        pygame.event.pump()
+        self.win.fill((255, 255, 255))
+
+        os2_1_g2_text = f1.render(f'Скорость 1 ось: {self.os_2}', 1, (180, 0, 0))
+        os4_2_g2_text = f1.render(f'Скорость 2 ось: {self.os_4}', 1, (180, 0, 0))
+        but_1_g2_text = f1.render(f'Скорость 1 кнопка: {self.but_1_g2}', 1, (180, 0, 0))
+        but_2_g2_text = f1.render(f'Скорость 2 кнопка: {self.but_2_g2}', 1, (180, 0, 0))
+        but_3_g2_text = f1.render(f'Скорость 3 кнопка: {self.but_3_g2}', 1, (180, 0, 0))
+        but_4_g2_text = f1.render(f'Скорость 4 кнопка: {self.but_4_g2}', 1, (180, 0, 0))
+        but_5_g2_text = f1.render(f'Скорость 5 кнопка: {self.but_5_g2}', 1, (180, 0, 0))
+        but_6_g2_text = f1.render(f'Скорость 6 кнопка: {self.but_6_g2}', 1, (180, 0, 0))
+
+        os0_g1_text = f1.render(f'Управление 1 ось: {self.os_0}', 1, (180, 0, 0))
+        os1_g1_text = f1.render(f'Управление 2 ось: {self.os_1}', 1, (180, 0, 0))
+        os3_g1_text = f1.render(f'Управление 3 ось: {self.os_3}', 1, (180, 0, 0))
+        but_1_g1_text = f1.render(f'Управление 1 кнопка: {self.but_1_g1}', 1, (180, 0, 0))
+        but_2_g1_text = f1.render(f'Управление 2 кнопка: {self.but_2_g1}', 1, (180, 0, 0))
+        but_3_g1_text = f1.render(f'Управление 3 кнопка: {self.but_3_g1}', 1, (180, 0, 0))
+        but_4_g1_text = f1.render(f'Управление 4 кнопка: {self.but_4_g1}', 1, (180, 0, 0))
+        hat_0_g1_text = f1.render(f'Шляпка: {self.hat_0_g1}', 1, (180, 0, 0))
+
+        but_10_text = f1.render(f'Доп. кнопка 1: {self.but_10}', 1, (180, 0, 0))
+        but_11_text = f1.render(f'Доп. кнопка 2: {self.but_11}', 1, (180, 0, 0))
+
+        self.win.blit(os2_1_g2_text, (10, 50))
+        self.win.blit(os4_2_g2_text, (10, 75))
+        self.win.blit(but_1_g2_text, (10, 100))
+        self.win.blit(but_2_g2_text, (10, 125))
+        self.win.blit(but_3_g2_text, (10, 150))
+        self.win.blit(but_4_g2_text, (10, 175))
+        self.win.blit(but_5_g2_text, (10, 200))
+        self.win.blit(but_6_g2_text, (10, 225))
+        # !!
+        self.win.blit(os0_g1_text, (300, 50))
+        self.win.blit(os1_g1_text, (300, 75))
+        self.win.blit(os3_g1_text, (300, 100))
+        self.win.blit(but_1_g1_text, (300, 125))
+        self.win.blit(but_2_g1_text, (300, 150))
+        self.win.blit(but_3_g1_text, (300, 175))
+        self.win.blit(but_4_g1_text, (300, 200))
+        self.win.blit(hat_0_g1_text, (300, 225))
+        # !!
+        self.win.blit(but_10_text, (300, 400))
+        self.win.blit(but_11_text, (300, 425))
+        pg.display.update()
+
+    def read(self, data):
+        self.data_r = data
+
+    def write(self):
+        self.w_data = [self.os_0, self.os_1, self.os_2, self.os_3, self.os_4,
+                       self.but_1_g2, self.but_2_g2, self.but_3_g2,
+                       self.but_4_g2, self.but_5_g2, self.but_6_g2,
+                       self.but_1_g1, self.but_2_g1, self.but_3_g1,
+                       self.but_4_g1, self.hat_0_g1, self.but_10, self.but_11]
+        return bytearray(self.w_data)
+
+
+com = Сommunication()
+while True:
+    com.Jostik_info()
+    com.display()
+    data = conn.recv(1024)
+    if data:
+        com.read(data)
+        conn.send(com.write())
+conn.close()
